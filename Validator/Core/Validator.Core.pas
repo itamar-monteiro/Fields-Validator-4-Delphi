@@ -27,6 +27,7 @@ type
     class var FValidationMode: TValidationMode;
     class var FOnErrorDisplay: TOnErrorDisplay;
     class var FShowErrorLabel: Boolean;
+    class var FForm: TForm;
     class procedure HookComponent(AControl: TWinControl);
     class procedure ClearErrors;
     class procedure DrawErrorLabel(AControl: TWinControl; AMessage: string; AExibir: Boolean);
@@ -175,19 +176,27 @@ class procedure TValidator.ClearErrors;
 var
   LH: HWND;
   LControl: TWinControl;
+  TempList: TList<HWND>;
 begin
-  for LH in FErrorList do
-  begin
-    LControl:= FindControl(LH);
-    if Assigned(LControl) then
-      DrawErrorLabel(LControl, '', False);
+  // Cria uma lista temporária para evitar problemas de iteração
+  TempList:= TList<HWND>.Create;
+  try
+    TempList.AddRange(FErrorList);
+    FErrorList.Clear;
 
-    // Avisa ao Windows que a moldura (Frame) mudou e deve ser redesenhada sem o nosso retângulo
-    SetWindowPos(LH, 0, 0, 0, 0, 0, SWP_NOMOVE or SWP_NOSIZE or SWP_NOZORDER or SWP_FRAMECHANGED or SWP_DRAWFRAME);
+    for LH in TempList do
+    begin
+      LControl:= FindControl(LH);
+      if Assigned(LControl) then
+        DrawErrorLabel(LControl, '', False);
+
+      // Avisa ao Windows que a moldura (Frame) mudou e deve ser redesenhada sem o retângulo vermelho
+      //SetWindowPos(LH, 0, 0, 0, 0, 0, SWP_NOMOVE or SWP_NOSIZE or SWP_NOZORDER or SWP_FRAMECHANGED or SWP_DRAWFRAME);
+      RedrawWindow(LH, nil, 0, RDW_INVALIDATE or RDW_FRAME or RDW_UPDATENOW);
+    end;
+  finally
+    TempList.Free;
   end;
-//  for LH in FErrorList do
-//    RedrawWindow(LH, nil, 0, RDW_INVALIDATE or RDW_FRAME or RDW_UPDATENOW);
-  FErrorList.Clear;
 end;
 
 class procedure TValidator.HookComponent(AControl: TWinControl);
@@ -205,11 +214,17 @@ var
   DC: HDC;
   OldProc: Pointer;
   R: TRect;
+  ShouldDrawError: Boolean;
 begin
   TValidator.DefaultWindowProcs.TryGetValue(Handle, OldProc);
-  Result := CallWindowProc(OldProc, Handle, Msg, wParam, lParam);
 
-  if (Msg = WM_NCPAINT) and TValidator.FErrorList.Contains(Handle) then
+  // Verifica ANTES de chamar o procedimento original
+  ShouldDrawError:= (Msg = WM_NCPAINT) and TValidator.FErrorList.Contains(Handle);
+
+  Result:= CallWindowProc(OldProc, Handle, Msg, wParam, lParam);
+
+  //if (Msg = WM_NCPAINT) and TValidator.FErrorList.Contains(Handle) then
+  if ShouldDrawError then
   begin
     DC := GetWindowDC(Handle);
     try
@@ -230,10 +245,9 @@ begin
     finally
       ReleaseDC(Handle, DC);
     end;
-
-
   end;
 
+  // SE O COMPONENTE RECEBER O FOCO
 //  if (Msg = WM_SETFOCUS) then
 //  begin
 //    if TValidator.FErrorList.Contains(Handle) then

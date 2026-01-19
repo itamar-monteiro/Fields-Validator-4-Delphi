@@ -11,7 +11,10 @@ uses
   Validator.Attributes.Telefone,
   Validator.Attributes.MinMaxValue,
   Validator.Attributes.Email,
-  Validator.Attributes.Required;
+  Validator.Attributes.Required,
+  Validator.Attributes.CPF,
+  Validator.Attributes.CNPJ,
+  Validator.Attributes.CPFCNPJ;
 
 type
   FieldDisplay = Validator.Attributes.FieldDisplay.FieldDisplay;
@@ -22,6 +25,9 @@ type
   MinMaxValue  = Validator.Attributes.MinMaxValue.MinMaxValue;
   Email        = Validator.Attributes.Email.Email;
   Required     = Validator.Attributes.Required.Required;
+  ValidateCPF  = Validator.Attributes.CPF.ValidateCPF;
+  ValidateCNPJ = Validator.Attributes.CNPJ.ValidateCNPJ;
+  ValidateCPForCNPJ = Validator.Attributes.CPFCNPJ.ValidateCPForCNPJ;
 
 implementation
 

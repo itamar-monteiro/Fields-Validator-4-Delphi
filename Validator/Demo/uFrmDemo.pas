@@ -15,7 +15,7 @@ uses
   Vcl.StdCtrls,
   Validator.Core,
   Validator.Attributes,
-  Validator.Core.Types, Vcl.ExtCtrls;
+  Validator.Core.Types;
 
 type
   TFrmDemo = class(TForm)
@@ -62,7 +62,9 @@ type
     [Required]
     lbl_LimiteCredito: TLabel;
 
+    [ValidateCPForCNPJ]
     edt_CPFCNPJ: TEdit;
+
     lbl_CPFCNPJ: TLabel;
     btn_Validar: TButton;
     procedure btn_ValidarClick(Sender: TObject);

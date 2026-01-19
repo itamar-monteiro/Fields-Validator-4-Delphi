@@ -16,6 +16,9 @@ const
   MSG_DEFAULT_VALUE_MAX  = 'O campo deve ter um valor máximo de ' + TAG_MAX + '';
   MSG_DEFAULT_EMAIL      = 'O e-mail digitado é inválido';
   MSG_DEFAULT_TELEFONE   = 'Telefone está fora do padrão aceito. Padrão: (99) 99999-9999';
+  MSG_DEFAULT_CPF        = 'CPF inválido';
+  MSG_DEFAULT_CNPJ       = 'CNPJ inválido';
+  MSG_DEFAULT_CPFCNPJ    = 'CPF ou CNPJ inválido';
 
 implementation
 

@@ -17,7 +17,10 @@ uses
   Validator.Core in '..\Core\Validator.Core.pas',
   Validator.Core.Types in '..\Core\Validator.Core.Types.pas',
   Validator.Helpers in '..\Helpers\Validator.Helpers.pas',
-  Validator.Utils in '..\Utils\Validator.Utils.pas';
+  Validator.Utils in '..\Utils\Validator.Utils.pas',
+  Validator.Attributes.CPF in '..\Attributes\Validator.Attributes.CPF.pas',
+  Validator.Attributes.CNPJ in '..\Attributes\Validator.Attributes.CNPJ.pas',
+  Validator.Attributes.CPFCNPJ in '..\Attributes\Validator.Attributes.CPFCNPJ.pas';
 
 {$R *.res}
 

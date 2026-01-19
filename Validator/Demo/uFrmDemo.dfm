@@ -109,7 +109,7 @@ object FrmDemo: TFrmDemo
     Width = 177
     Height = 41
     Caption = 'Validar'
-    TabOrder = 5
+    TabOrder = 7
     OnClick = btn_ValidarClick
   end
   object edt_LimiteCredito: TEdit
@@ -120,7 +120,7 @@ object FrmDemo: TFrmDemo
     Alignment = taRightJustify
     CharCase = ecUpperCase
     NumbersOnly = True
-    TabOrder = 6
+    TabOrder = 5
   end
   object edt_CPFCNPJ: TEdit
     Left = 127
@@ -128,7 +128,7 @@ object FrmDemo: TFrmDemo
     Width = 178
     Height = 23
     MaxLength = 18
-    TabOrder = 7
+    TabOrder = 6
     OnChange = edt_CPFCNPJChange
   end
 end

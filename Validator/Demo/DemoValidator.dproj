@@ -146,6 +146,9 @@
         <DCCReference Include="..\Core\Validator.Core.Types.pas"/>
         <DCCReference Include="..\Helpers\Validator.Helpers.pas"/>
         <DCCReference Include="..\Utils\Validator.Utils.pas"/>
+        <DCCReference Include="..\Attributes\Validator.Attributes.CPF.pas"/>
+        <DCCReference Include="..\Attributes\Validator.Attributes.CNPJ.pas"/>
+        <DCCReference Include="..\Attributes\Validator.Attributes.CPFCNPJ.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
